@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Lista de Pessoas Físicas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .edit-button, .delete-button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .delete-button {
+      background-color: #f44336;
+    }
+  </style>
+  <script>
+    function confirmDelete(id) {
+      if (confirm("Are you sure you want to delete this record?")) {
+        window.location.href = "/pessoafisica/delete/" + id;
+      }
+    }
+  </script>
+</head>
+<body>
+<h1>Lista de Pessoas Físicas</h1>
+<a href="/pessoafisica/form" class="edit-button">Adicionar Pessoa Fisica</a>
+<a href="/" class="edit-button">Home</a>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>CPF</th>
+    <th>Nome</th>
+    <th>Telefone</th>
+    <th>Email</th>
+    <th>Ações</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="pessoa : ${pessoasfisica}">
+    <td th:text="${pessoa.id}"></td>
+    <td th:text="${pessoa.cpf}"></td>
+    <td th:text="${pessoa.nome}"></td>
+    <td th:text="${pessoa.telefone}"></td>
+    <td th:text="${pessoa.email}"></td>
+    <td>
+      <a th:href="@{/pessoafisica/edit/{id}(id=${pessoa.id})}" class="edit-button">Editar</a>
+      <button type="button" class="delete-button" th:onclick="'confirmDelete(' + ${pessoa.id} + ')'">Deletar</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

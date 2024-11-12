@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Home do Sistema</h1>
+    <button class="button" onclick="location.href='/vendas/list'">Lista de Vendas</button>
+    <button class="button" onclick="location.href='/pessoafisica/form'">Cadastrar Pessoa Fisica</button>
+    <button class="button" onclick="location.href='/pessoafisica/list'">Lista Pessoas Fisicas</button>
+    <button class="button" onclick="location.href='pessoajuridica/form'">Cadastrar Pessoa Juridica</button>
+    <button class="button" onclick="location.href='/pessoajuridica/list'">Lista de Pessoas Juridicas</button>
+</body>
+</html>

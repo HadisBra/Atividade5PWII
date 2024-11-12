@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Detalhe da Venda</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    .details, .items {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+    .details p, .items p {
+      margin: 10px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+    .button-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .edit-button, .delete-button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .delete-button {
+      background-color: #f44336;
+    }
+    .edit-button:hover, .delete-button:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+<h1>Detalhes da Venda</h1>
+<div class="details">
+  <p>ID: <span th:text="${venda.id}"></span></p>
+  <p>Data: <span th:text="${venda.data}"></span></p>
+  <!-- <p>Cliente: <span th:text="${venda.pessoa instanceof T(org.example.atividade4.entity.PessoaFisica) ? venda.pessoa.nome : venda.pessoa.razaoSocial}"></span></p>
+   <p>CPF/CNPJ: <span th:text="${venda.pessoa instanceof T(org.example.atividade4.entity.PessoaFisica) ? venda.pessoa.cpf : venda.pessoa.cnpj}"></span></p>
+   -->
+   <p>Cliente: <span th:text="${venda.pessoa.nome != null ? venda.pessoa.nome : venda.pessoa.razaoSocial}"></span></p>
+   <p>CPF/CNPJ: <span th:text="${venda.pessoa.cpf != null ? venda.pessoa.cpf : venda.pessoa.cnpj}"></span></p>
+   <p>Total: <span th:text="${venda.total}"></span></p>
+ </div>
+ <h2>Itens da Venda</h2>
+ <div class="items">
+   <table>
+     <thead>
+     <tr>
+       <th>ID</th>
+       <th>Descrição</th>
+       <th>Quantidade</th>
+       <th>Valor Unitário</th>
+       <th>Preço Total Item</th>
+     </tr>
+     </thead>
+     <tbody>
+     <tr th:each="item : ${itensVenda}">
+       <td th:text="${item.id}"></td>
+       <td th:text="${item.produto.descricao}"></td>
+       <td th:text="${item.quantidade}"></td>
+       <td th:text="${item.produto.preco}"></td>
+       <td th:text="${item.total}"></td>
+     </tr>
+     </tbody>
+   </table>
+ </div>
+ <div class="button-container">
+   <a href="/vendas/list" class="edit-button">Voltar à Lista</a>
+   <a href="/" class="edit-button">Home</a>
+ </div>
+ </body>
+ </html>
