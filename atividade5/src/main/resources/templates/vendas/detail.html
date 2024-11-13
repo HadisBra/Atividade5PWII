@@ -73,12 +73,16 @@
 <div class="details">
   <p>ID: <span th:text="${venda.id}"></span></p>
   <p>Data: <span th:text="${venda.data}"></span></p>
+  <p>Cliente: <span th:text="${venda.pessoa.getDadosPessoa()}"></span></p>
+    <p>Total: <span th:text="${venda.total}"></span></p>
   <!-- <p>Cliente: <span th:text="${venda.pessoa instanceof T(org.example.atividade4.entity.PessoaFisica) ? venda.pessoa.nome : venda.pessoa.razaoSocial}"></span></p>
    <p>CPF/CNPJ: <span th:text="${venda.pessoa instanceof T(org.example.atividade4.entity.PessoaFisica) ? venda.pessoa.cpf : venda.pessoa.cnpj}"></span></p>
-   -->
+
+
+
    <p>Cliente: <span th:text="${venda.pessoa.nome != null ? venda.pessoa.nome : venda.pessoa.razaoSocial}"></span></p>
    <p>CPF/CNPJ: <span th:text="${venda.pessoa.cpf != null ? venda.pessoa.cpf : venda.pessoa.cnpj}"></span></p>
-   <p>Total: <span th:text="${venda.total}"></span></p>
+   -->
  </div>
  <h2>Itens da Venda</h2>
  <div class="items">

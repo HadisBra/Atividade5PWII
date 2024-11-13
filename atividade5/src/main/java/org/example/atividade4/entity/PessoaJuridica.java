@@ -2,8 +2,10 @@ package org.example.atividade4.entity;
 
 import jakarta.persistence.Entity;
 
+import java.io.Serializable;
+
 @Entity
-public class PessoaJuridica extends Pessoa {
+public class PessoaJuridica extends Pessoa implements Serializable {
 
     private String cnpj;
     private String razaoSocial;
@@ -24,12 +26,9 @@ public class PessoaJuridica extends Pessoa {
     public void setRazaoSocial(String razaoSocial) {
         this.razaoSocial = razaoSocial;
     }
+
     @Override
-    public String getCpf() {
-        return null; // PessoaJuridica does not have a CPF, so return null or throw an UnsupportedOperationException
-    }
-    @Override
-    public String getNome() {
-        return null; // PessoaJuridica does not have a CPF, so return null or throw an UnsupportedOperationException
+    public String getDadosPessoa() {
+       return razaoSocial;
     }
 }

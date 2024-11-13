@@ -36,7 +36,7 @@ public class PessoaJuridicaController {
 
     @PostMapping("/update")
     public ModelAndView update(PessoaJuridica pessoaJuridica) {
-        repository.update(pessoaJuridica);
+        repository.updatePJ(pessoaJuridica);
         return new ModelAndView("redirect:/pessoajuridica/list");
     }
 
