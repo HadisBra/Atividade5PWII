@@ -20,7 +20,7 @@ public class PessoaJuridicaRepository {
         em.persist(pessoajuridica);
 
     }
-    public void update(Pessoa pessoa) {
+    public void updatePJ(Pessoa pessoa) {
         em.merge(pessoa);
     }
 

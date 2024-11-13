@@ -51,7 +51,9 @@ public class Venda implements Serializable {
             total += itemVenda.total();
         }
         return total;
+
     }
+
     public Pessoa getPessoa() {
         return pessoa;
     }

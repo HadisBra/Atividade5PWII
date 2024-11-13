@@ -3,7 +3,6 @@ package org.example.atividade4.entity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.beans.Transient;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -25,6 +24,11 @@ public abstract class Pessoa  implements Serializable {
 
     private String telefone;
 
+
+//    @Transient
+//    Pessoa pf = new PessoaFisica();
+//    @Transient
+//    Pessoa pj = new PessoaJuridica();
 
 
     public Long getId() {
@@ -51,11 +55,6 @@ public abstract class Pessoa  implements Serializable {
         this.telefone = telefone;
     }
 
-    public abstract String getNome();
-    public abstract String getRazaoSocial();
-    public abstract String getCpf();
-    public abstract String getCnpj();
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -68,5 +67,11 @@ public abstract class Pessoa  implements Serializable {
     public int hashCode() {
         return Objects.hash(email, telefone);
     }
+
+
+
+    //metodo abstrato
+public abstract String getDadosPessoa();
+
 
 }

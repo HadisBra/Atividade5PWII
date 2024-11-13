@@ -61,7 +61,8 @@
                 <td th:text="${venda.id}"></td>
                 <td th:text="${venda.data}"></td>
                 <td th:text="${venda.total}"></td>
-                <td th:text="${venda.pessoa.nome != null ? venda.pessoa.nome : venda.pessoa.razaoSocial}"></td>
+                <td th:text="${venda.pessoa.getDadosPessoa()}"></td>
+               <!-- <td th:text="${venda.pessoa.nome != null ? venda.pessoa.nome : venda.pessoa.razaoSocial}"></td>-->
                 <td><a th:href="@{/vendas/detail/{id}(id=${venda.id})}" class="detail-button">Detalhes</a></td>
             </tr>
         </tbody>
