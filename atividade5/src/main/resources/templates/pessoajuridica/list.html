@@ -74,7 +74,7 @@
 <table>
     <thead>
     <tr>
-        <th>ID</th>
+        <th>#</th>
         <th>CNPJ</th>
         <th>Nome</th>
         <th>Telefone</th>
@@ -83,8 +83,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="pessoa : ${pessoasjuridica}">
-        <td th:text="${pessoa.id}"></td>
+    <tr th:each="pessoa,seq : ${pessoasjuridica}">
+        <td th:text="${seq.index+1}"></td>
         <td th:text="${pessoa.cnpj}"></td>
         <td th:text="${pessoa.razaoSocial}"></td>
         <td th:text="${pessoa.telefone}"></td>
