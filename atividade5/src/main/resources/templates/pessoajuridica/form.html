@@ -1,62 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+
+<head th:replace="~{fragments/head :: head(~{::title})}">
     <title>Formulário de Pessoa Jurídica</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
-        }
-        form {
-            max-width: 600px;
-            margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        label {
-            display: block;
-            margin: 10px 0 5px;
-            font-weight: bold;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .edit-button, button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        .edit-button:hover, button:hover {
-            background-color: #45a049;
-        }
-        .button-container {
-            text-align: center;
-        }
-    </style>
 </head>
+
 <body>
+<main>
 <h1>Formulário de Pessoa Jurídica</h1>
-<div class="button-container">
-    <a href="/pessoajuridica/list" class="edit-button">Listar Pessoas Jurídicas</a>
-    <a href="/" class="edit-button">Home</a>
-</div>
-<form th:action="${pessoajuridica.id} == null ? @{/pessoajuridica/save} : @{/pessoajuridica/update}" th:object="${pessoajuridica}" method="post">
+<form th:action="${pessoajuridica.id} == null ? @{/pessoajuridica/save} : @{/pessoajuridica/update}" th:object="${pessoajuridica}" method="post" class="form-form">
     <input type="hidden" th:field="*{id}" />
     <label for="cnpj">CNPJ:</label>
     <input type="text" id="cnpj" th:field="*{cnpj}" placeholder="Digite o CNPJ" required />
@@ -70,5 +22,6 @@
         <button type="submit">Salvar</button>
     </div>
 </form>
+</main>
 </body>
 </html>

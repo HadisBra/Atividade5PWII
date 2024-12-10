@@ -1,76 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+
+<head th:replace="~{fragments/head :: head(~{::title})}">
     <title>Lista de Pessoas Jurídicas</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
-        }
-        h1 {
-            color: #333;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-        .edit-button, .delete-button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        .delete-button {
-            background-color: #f44336;
-        }
-        .edit-button:hover, .delete-button:hover {
-            opacity: 0.8;
-        }
-        .button-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-    </style>
-    <script>
-        function confirmDelete(id) {
-            if (confirm("Deseja Excluir esse cliente?")) {
-                window.location.href = "/pessoajuridica/delete/" + id;
-            }
-        }
-    </script>
 </head>
+
 <body>
+<main>
 <h1>Lista de Pessoas Jurídicas</h1>
-<div class="button-container">
-    <a href="/pessoajuridica/form" class="edit-button">Adicionar Pessoa Jurídica</a>
-    <a href="/" class="edit-button">Home</a>
-</div>
 <table>
     <thead>
     <tr>
@@ -91,10 +28,11 @@
         <td th:text="${pessoa.email}"></td>
         <td>
             <a th:href="@{/pessoajuridica/edit/{id}(id=${pessoa.id})}" class="edit-button">Editar</a>
-            <button type="button" class="delete-button" th:onclick="'confirmDelete(' + ${pessoa.id} + ')'">Deletar</button>
+            <a th:href="@{/pessoajuridica/delete/{id}(id=${pessoa.id})}" class="button" onclick="return confirm('Tem certeza que deseja deletar esta Empresa?');">Deletar</a>
         </td>
     </tr>
     </tbody>
 </table>
+</main>
 </body>
 </html>

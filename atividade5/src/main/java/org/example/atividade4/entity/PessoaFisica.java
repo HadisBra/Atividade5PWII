@@ -31,6 +31,6 @@ public class PessoaFisica  extends Pessoa implements Serializable {
 
     @Override
     public String getDadosPessoa() {
-        return  nome;
+        return  nome + " " + cpf;
     }
 }
