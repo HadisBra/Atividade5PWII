@@ -45,6 +45,7 @@ public class PessoaJuridicaController {
         model.addAttribute("pessoasjuridica", repository.list());
         return "pessoajuridica/list";
     }
+
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id, Model model) {
         PessoaJuridica pessoajuridica = repository.edit(id);

@@ -1,55 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <title>Lista de Pessoas Físicas</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    table, th, td {
-      border: 1px solid #ccc;
-    }
-    th, td {
-      padding: 10px;
-      text-align: left;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-    .edit-button, .delete-button {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 14px;
-      margin: 4px 2px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    .delete-button {
-      background-color: #f44336;
-    }
-  </style>
-  <script>
-    function confirmDelete(id) {
-      if (confirm("Deseja Excluir esse cliente?")) {
-        window.location.href = "/pessoafisica/delete/" + id;
-      }
-    }
-  </script>
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+
+<head th:replace="~{fragments/head :: head(~{::title})}">
+    <title>Lista de Pessoas Físicas</title>
 </head>
 <body>
-<h1>Lista de Pessoas Físicas</h1>
-<a href="/pessoafisica/form" class="edit-button">Adicionar Pessoa Fisica</a>
-<a href="/" class="edit-button">Home</a>
+<main>
+<H1>Lista de Pessoas Físicas</H1>
 <table>
   <thead>
   <tr>
@@ -69,11 +26,12 @@
     <td th:text="${pessoa.telefone}"></td>
     <td th:text="${pessoa.email}"></td>
     <td>
-      <a th:href="@{/pessoafisica/edit/{id}(id=${pessoa.id})}" class="edit-button">Editar</a>
-      <button type="button" class="delete-button" th:onclick="'confirmDelete(' + ${pessoa.id} + ')'">Deletar</button>
+      <a th:href="@{/pessoafisica/edit/{id}(id=${pessoa.id})}" class="button">Editar</a>
+      <a th:href="@{/pessoafisica/delete/{id}(id=${pessoa.id})}" class="button" onclick="return confirm('Tem certeza que deseja deletar esta pessoa?');">Deletar</a>
     </td>
   </tr>
   </tbody>
 </table>
+</main>
 </body>
 </html>

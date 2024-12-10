@@ -30,6 +30,9 @@ public class ConfiguracaoSpringMvc implements WebMvcConfigurer{
         registry.addViewController("/home").setViewName("pessoajuridica/form");
         registry.addViewController("/home").setViewName("pessoajuridica/list");
 
+
+
+
     }
 
 }
