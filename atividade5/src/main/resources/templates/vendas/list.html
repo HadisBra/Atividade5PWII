@@ -7,6 +7,24 @@
 
 <body>
 <main>
+    <h1>Buscar Vendas por Cliente</h1>
+    <form action="/vendas/buscarCliente" method="get">
+        <label for="clienteId">Cliente ID:</label>
+        <input type="text" id="clienteId" name="id" required />
+        <button type="submit">Buscar</button>
+    </form>
+    <hr>
+
+    <form th:action="@{/vendas/buscar}" method="post" class="row g-3 mb-4" role="search">
+        <div class="col-md-5">
+            <input class="form-control" th:name="databusca" type="date" aria-label="Search" required>
+        </div>
+        <div class="col-md-2 d-grid">
+            <button  type="submit">Buscar</button>
+        </div>
+    </form>
+    <hr>
+
     <h1>Lista de Vendas</h1>
     <table>
         <thead>
@@ -14,7 +32,7 @@
                 <th>#</th>
                 <th>Data</th>
                 <th>Total</th>
-                <th>Cilente</th>
+                <th>Cliente</th>
                 <th>Ação</th>
             </tr>
         </thead>
@@ -24,13 +42,12 @@
                 <td th:text="${venda.data}"></td>
                 <td th:text="${venda.total}"></td>
                 <td th:text="${venda.pessoa.getDadosPessoa()}"></td>
-               <!-- <td th:text="${venda.pessoa.nome != null ? venda.pessoa.nome : venda.pessoa.razaoSocial}"></td>-->
                 <td><a th:href="@{/vendas/detail/{id}(id=${venda.id})}" class="detail-button">Detalhes</a></td>
             </tr>
         </tbody>
     </table>
+
+
 </main>
 </body>
-
-
 </html>

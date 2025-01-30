@@ -6,7 +6,14 @@
 </head>
 <body>
 <main>
-<H1>Lista de Pessoas Físicas</H1>
+  <h5>Buscar Pessoa Física</h5>
+  <form action="/pessoafisica/buscar_nome" method="get">
+    <label for="nomeBusca">Nome:</label>
+    <input type="text" id="nomeBusca" name="nomeBusca" required>
+    <button type="submit">Buscar</button>
+  </form>
+<hr>
+  <H1>Lista de Pessoas Físicas</H1>
 <table>
   <thead>
   <tr>
@@ -32,6 +39,9 @@
   </tr>
   </tbody>
 </table>
+
+
+
 </main>
 </body>
 </html>

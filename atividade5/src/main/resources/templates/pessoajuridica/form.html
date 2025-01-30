@@ -8,20 +8,30 @@
 <body>
 <main>
 <h1>Formulário de Pessoa Jurídica</h1>
-<form th:action="${pessoajuridica.id} == null ? @{/pessoajuridica/save} : @{/pessoajuridica/update}" th:object="${pessoajuridica}" method="post" class="form-form">
-    <input type="hidden" th:field="*{id}" />
-    <label for="cnpj">CNPJ:</label>
-    <input type="text" id="cnpj" th:field="*{cnpj}" placeholder="Digite o CNPJ" required />
-    <label for="razaoSocial">Razão Social:</label>
-    <input type="text" id="razaoSocial" th:field="*{razaoSocial}" placeholder="Digite a Razão Social" required />
-    <label for="telefone">Telefone:</label>
-    <input type="text" id="telefone" th:field="*{telefone}" placeholder="Digite o Telefone" required />
-    <label for="email">Email:</label>
-    <input type="email" id="email" th:field="*{email}" placeholder="Digite o Email" required />
-    <div class="button-container">
-        <button type="submit">Salvar</button>
-    </div>
-</form>
+    <form needs-validation th:action="@{/pessoajuridica/save}" th:object="${pessoajuridica}" method="post">
+        <div class="form-row">
+            <div class="mb-2 col-lg-4">
+                <input type="hidden" th:field="*{id}">
+                <input class="form-control" type="text" th:field="*{razaoSocial}" th:errorclass="is-invalid" placeholder="Razão Social">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('razaoSocial')}" th:errors="*{razaoSocial}"></div>
+            </div>
+            <div class="mb-2 col-lg-4">
+                <input class="form-control" type="text" th:field="*{telefone}" th:errorclass="is-invalid" placeholder="Telefone">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></div>
+            </div>
+            <div class="mb-2 col-lg-4">
+                <input class="form-control" type="email" th:field="*{email}" th:errorclass="is-invalid" placeholder="E-mail">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+            </div>
+            <div class="mb-2 col-lg-4">
+                <input class="form-control" type="text" th:field="*{cnpj}" th:errorclass="is-invalid" placeholder="CNPJ">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('cnpj')}" th:errors="*{cnpj}"></div>
+            </div>
+            <div class="mb-2 col-lg-4 mt-3">
+                <button class="btn btn-outline-success">Salvar</button>
+            </div>
+        </div>
+    </form>
 </main>
 </body>
 </html>

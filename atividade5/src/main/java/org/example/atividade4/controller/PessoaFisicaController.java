@@ -1,17 +1,16 @@
 package org.example.atividade4.controller;
 
 import jakarta.transaction.Transactional;
-import org.example.atividade4.entity.Pessoa;
+import jakarta.validation.Valid;
 import org.example.atividade4.entity.PessoaFisica;
 import org.example.atividade4.repository.PessoaFisicaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Transactional
 @Controller
@@ -19,30 +18,60 @@ import org.springframework.web.servlet.ModelAndView;
 public class PessoaFisicaController {
 
     @Autowired
-    private PessoaFisicaRepository pessoaFisicaRepository;
+    PessoaFisicaRepository pessoaFisicaRepository;
 
-
+    // form de cadastro
     @GetMapping("/form")
-    public String form(Model model) {
-        model.addAttribute("pessoafisica", new PessoaFisica());
+    public String form(@RequestParam(required = false) Long id, Model model) {
+        if (id != null) {
+            PessoaFisica pessoaFisica = pessoaFisicaRepository.edit(id);
+            model.addAttribute("pessoafisica", pessoaFisica);
+        } else {
+            model.addAttribute("pessoafisica", new PessoaFisica());
+        }
         return "pessoafisica/form";
     }
-        @PostMapping("/save")
-        public ModelAndView save(PessoaFisica pessoaFisica) {
-            pessoaFisicaRepository.save(pessoaFisica);
-           return new ModelAndView("redirect:/pessoafisica/list");
-        }
 
-        @PostMapping("/update")
-        public ModelAndView update(PessoaFisica pessoaFisica) {
+    @GetMapping("/buscar_nome")
+    public ModelAndView buscarNome(@RequestParam("nomeBusca") String nome, Model model) {
+        model.addAttribute("pessoasfisica", pessoaFisicaRepository.buscarNome(nome));
+        return new ModelAndView("/pessoafisica/list");
+    }
+
+    // salvar com validação
+    @PostMapping("/save")
+    public ModelAndView save(@Valid @ModelAttribute("pessoafisica") PessoaFisica pessoaFisica, BindingResult result, RedirectAttributes attributes) {
+        try {
+            if (result.hasErrors()) {
+                return new ModelAndView("pessoafisica/form");
+            }
+            pessoaFisicaRepository.save(pessoaFisica);
+            return new ModelAndView("redirect:/pessoafisica/list");
+        } catch (Exception e) {
+            result.rejectValue("cpf", "error.pessoafisica", "CPF já cadastrado");
+            return new ModelAndView("pessoafisica/form");
+        }
+    }
+
+    @PostMapping("/update")
+    public ModelAndView update(@Valid @ModelAttribute("pessoafisica") PessoaFisica pessoaFisica, BindingResult result, RedirectAttributes attributes) {
+
+        try {
+            if (result.hasErrors()) {
+                return new ModelAndView("pessoafisica/form");
+            }
             pessoaFisicaRepository.update(pessoaFisica);
             return new ModelAndView("redirect:/pessoafisica/list");
+        } catch (Exception e) {
+            result.rejectValue("cpf", "error.pessoafisica", "CPF já cadastrado");
+            return new ModelAndView("pessoafisica/form");
         }
-        @GetMapping("/list")
-        public String list(Model model) {
-            model.addAttribute("pessoasfisica", pessoaFisicaRepository.list());
-            return "pessoafisica/list";
-        }
+    }
+    @GetMapping("/list")
+    public String list(Model model) {
+        model.addAttribute("pessoasfisica", pessoaFisicaRepository.list());
+        return "pessoafisica/list";
+    }
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id, Model model) {
@@ -56,5 +85,4 @@ public class PessoaFisicaController {
         pessoaFisicaRepository.deleteId(id);
         return new ModelAndView("redirect:/pessoafisica/list");
     }
-
-    }
+}

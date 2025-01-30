@@ -7,32 +7,42 @@
 
 <body>
 <main>
-<h1>Lista de Pessoas Jurídicas</h1>
-<table>
-    <thead>
-    <tr>
-        <th>#</th>
-        <th>CNPJ</th>
-        <th>Nome</th>
-        <th>Telefone</th>
-        <th>Email</th>
-        <th>Ações</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="pessoa,seq : ${pessoasjuridica}">
-        <td th:text="${seq.index+1}"></td>
-        <td th:text="${pessoa.cnpj}"></td>
-        <td th:text="${pessoa.razaoSocial}"></td>
-        <td th:text="${pessoa.telefone}"></td>
-        <td th:text="${pessoa.email}"></td>
-        <td>
-            <a th:href="@{/pessoajuridica/edit/{id}(id=${pessoa.id})}" class="edit-button">Editar</a>
-            <a th:href="@{/pessoajuridica/delete/{id}(id=${pessoa.id})}" class="button" onclick="return confirm('Tem certeza que deseja deletar esta Empresa?');">Deletar</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <h5>Buscar Pessoa Jurídica</h5>
+    <form action="/pessoajuridica/buscarRazaoSocial" method="get">
+        <label for="razaoSocial">Razão Social:</label>
+        <input type="text" id="razaoSocial" name="razaoSocial" required>
+        <button type="submit">Buscar</button>
+    </form>
+    <hr>
+    <h1>Lista de Pessoas Jurídicas</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>CNPJ</th>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>Email</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pessoa,seq : ${pessoasjuridica}">
+            <td th:text="${seq.index+1}"></td>
+            <td th:text="${pessoa.cnpj}"></td>
+            <td th:text="${pessoa.razaoSocial}"></td>
+            <td th:text="${pessoa.telefone}"></td>
+            <td th:text="${pessoa.email}"></td>
+            <td>
+                <a th:href="@{/pessoajuridica/edit/{id}(id=${pessoa.id})}" class="edit-button">Editar</a>
+                <a th:href="@{/pessoajuridica/delete/{id}(id=${pessoa.id})}" class="button" onclick="return confirm('Tem certeza que deseja deletar esta Empresa?');">Deletar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+
 </main>
 </body>
 </html>

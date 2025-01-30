@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 public class ItemVenda implements Serializable {
@@ -12,6 +13,10 @@ public class ItemVenda implements Serializable {
     @Id
     private Long id;
     private double quantidade;
+    private LocalDate data;
+
+
+
 
     @ManyToOne
     private Venda venda;
@@ -19,6 +24,20 @@ public class ItemVenda implements Serializable {
 
     @ManyToOne
     private Produto produto;
+
+
+
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
+
+
+
 
     public Venda getVenda() {
         return venda;
@@ -29,10 +48,6 @@ public class ItemVenda implements Serializable {
     }
 
 
-
-
-
-
     public Produto getProduto() {
         return produto;
     }
@@ -40,7 +55,6 @@ public class ItemVenda implements Serializable {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
-
 
 
     public Long getId() {
@@ -59,8 +73,9 @@ public class ItemVenda implements Serializable {
         this.quantidade = quantidade;
     }
 
-    public double total(){
+    public double total() {
         return quantidade * produto.getPreco().doubleValue();
     }
+
 
 }
