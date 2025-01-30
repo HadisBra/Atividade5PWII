@@ -1,35 +1,33 @@
 package org.example.atividade4.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.context.annotation.Scope;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 
+@Scope("session")
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Pessoa  implements Serializable {
-
+public abstract class Pessoa implements Serializable {
 
     @Id
     @GeneratedValue(generator = "inc")
     @GenericGenerator(name = "inc", strategy = "increment")
     private Long id;
+    @NotBlank
+    @Email
+    private String email;
+
+
+    @NotBlank
+    private String telefone;
 
     @OneToMany(mappedBy = "pessoa")
     private List<Venda> vendas;
-
-    private String email;
-
-    private String telefone;
-
-
-//    @Transient
-//    Pessoa pf = new PessoaFisica();
-//    @Transient
-//    Pessoa pj = new PessoaJuridica();
-
 
     public Long getId() {
         return id;
@@ -55,23 +53,8 @@ public abstract class Pessoa  implements Serializable {
         this.telefone = telefone;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Pessoa pessoa = (Pessoa) o;
-        return Objects.equals(email, pessoa.email) && Objects.equals(telefone, pessoa.telefone);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(email, telefone);
-    }
-
-
 
     //metodo abstrato
-public abstract String getDadosPessoa();
-
+    public abstract String getDadosPessoa();
 
 }

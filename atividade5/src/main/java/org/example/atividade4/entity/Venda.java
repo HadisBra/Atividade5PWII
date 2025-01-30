@@ -1,25 +1,30 @@
 package org.example.atividade4.entity;
 
 import jakarta.persistence.*;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
+@Component
+@Scope("session")
 @Entity
+
 public class Venda implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
-    private Date data;
+
+    private LocalDate data;
 
     @ManyToOne
     private Pessoa pessoa;
 
-
-
-
-    @OneToMany(mappedBy = "venda", fetch = FetchType.LAZY)
-    private List<ItemVenda> itensVenda;
+    @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL)
+    private List<ItemVenda> itensVenda = new ArrayList<>();
 
     public List<ItemVenda> getItensVenda() {
         return itensVenda;
@@ -37,11 +42,11 @@ public class Venda implements Serializable {
         this.id = id;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
@@ -60,5 +65,15 @@ public class Venda implements Serializable {
 
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
+    }
+
+
+    public List<ItemVenda> getItemVendas() {
+        return itensVenda;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        data = LocalDate.now();
     }
 }

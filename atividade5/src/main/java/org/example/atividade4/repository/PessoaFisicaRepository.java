@@ -32,11 +32,25 @@ public class PessoaFisicaRepository {
     }
 
 
+    public List<PessoaFisica> buscarNome(String nome) {
+        String NomeFisica= nome.toLowerCase();
+        Query query = em.createQuery("select p from PessoaFisica p where lower(p.nome) like :nome");
+        query.setParameter("nome", "%" + NomeFisica + "%");
+        return query.getResultList();
+
+    }
+
+
+
     public void deleteId(Long id) {
         Pessoa pessoa = em.find(Pessoa.class, id);
         em.remove(pessoa);
     }
     public PessoaFisica edit(Long id) {
+        return em.find(PessoaFisica.class, id);
+    }
+
+    public PessoaFisica pessoaFisica(Long id) {
         return em.find(PessoaFisica.class, id);
     }
 }

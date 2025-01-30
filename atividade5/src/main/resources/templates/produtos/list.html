@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+
+<head th:replace="~{fragments/head :: head(~{::title})}">
+    <title>Lista de Produtos</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('form.add-to-cart-form').on('submit', function(event) {
+                event.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    type: form.attr('method'),
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function(response) {
+                        alert('Produto adicionado ao carrinho com sucesso!');
+                    },
+                    error: function() {
+                        alert('Erro ao adicionar produto ao carrinho.');
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+<main>
+
+    <h5>Buscar Produto</h5>
+    <form action="/produtos/buscar_produto" method="get">
+        <label for="descricao">Descrição:</label>
+        <input type="text" id="descricao" name="descricao" required>
+        <button type="submit">Buscar</button>
+    </form>
+    <hr>
+    <h1>Lista de Produtos</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Nome</th>
+            <th>Preço</th>
+            <th>Ações</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="produto,seq : ${produtos}">
+            <td th:text="${seq.index+1}"></td>
+            <td th:text="${produto.descricao}"></td>
+            <td th:text="${produto.preco}"></td>
+            <td>
+                <a th:href="@{/produtos/edit/{id}(id=${produto.id})}" class="edit-button">Editar</a>
+                <a th:href="@{/produtos/delete/{id}(id=${produto.id})}" class="button"
+                   onclick="return confirm('Tem certeza que deseja deletar este Produto?');">Deletar</a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+</main>
+</body>
+</html>
